@@ -11,12 +11,7 @@
         "src": "/api/webhook",
         "dest": "/index.js"
       }
-    ],
-    "functions": {
-        "api/webhook": {
-          "maxDuration": 10 
-        }
-    }
+    ]
   }
   
   
