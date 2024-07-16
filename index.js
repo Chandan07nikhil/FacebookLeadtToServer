@@ -8,6 +8,7 @@ const VERIFY_TOKEN = 'abcd123456'; // Replace with your actual verify token
 
 // Endpoint for Facebook Webhook Verification
 app.get('/api/webhook', (req, res) => {
+  console.log('GET /api/webhook called');
   const mode = req.query['hub.mode'];
   const token = req.query['hub.verify_token'];
   const challenge = req.query['hub.challenge'];
@@ -17,13 +18,18 @@ app.get('/api/webhook', (req, res) => {
       console.log('WEBHOOK_VERIFIED');
       res.status(200).send(challenge);
     } else {
+      console.log('Verification failed');
       res.sendStatus(403);
     }
+  } else {
+    console.log('Missing mode or token');
+    res.sendStatus(400);
   }
 });
 
 // Endpoint to handle webhook events
 app.post('/api/webhook', (req, res) => {
+  console.log('POST /api/webhook called');
   const body = req.body;
 
   if (body.object === 'page') {
@@ -40,6 +46,7 @@ app.post('/api/webhook', (req, res) => {
 
     res.status(200).send('EVENT_RECEIVED');
   } else {
+    console.log('Invalid object type');
     res.sendStatus(404);
   }
 });
