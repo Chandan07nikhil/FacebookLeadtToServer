@@ -4,9 +4,9 @@ const bodyParser = require('body-parser');
 const app = express();
 app.use(bodyParser.json());
 
-const VERIFY_TOKEN = 'abcd123456'; // Replace with your actual verify token
+const VERIFY_TOKEN = 'abcd123456'; 
 
-// Endpoint for Facebook Webhook Verification
+// Endpoint for Facebook Webhook Verification, This is for connection establishment
 app.get('/api/webhook', (req, res) => {
   console.log('GET /api/webhook called');
   const mode = req.query['hub.mode'];
@@ -18,7 +18,7 @@ app.get('/api/webhook', (req, res) => {
       console.log('WEBHOOK_VERIFIED');
       res.status(200).send(challenge);
     } else {
-      console.log('Verification failed');
+      console.log('Verification failed 403');
       res.sendStatus(403);
     }
   } else {
@@ -27,7 +27,6 @@ app.get('/api/webhook', (req, res) => {
   }
 });
 
-// Endpoint to handle webhook events
 app.post('/api/webhook', (req, res) => {
   console.log('POST /api/webhook called');
   const body = req.body;
@@ -39,14 +38,14 @@ app.post('/api/webhook', (req, res) => {
         if (change.field === 'leadgen') {
           const leadgen = change.value;
           console.log('Lead received:', leadgen);
-          // Process the lead data
+          // Process the lead data according to requirements
         }
       });
     });
 
     res.status(200).send('EVENT_RECEIVED');
   } else {
-    console.log('Invalid object type');
+    console.log('Invalid object type 404');
     res.sendStatus(404);
   }
 });
