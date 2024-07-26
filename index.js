@@ -6,6 +6,10 @@ app.use(bodyParser.json());
 
 const VERIFY_TOKEN = 'abcd123456'; 
 
+app.get('/', (req, res)=>{
+  console.log('This is webhook server');
+  return 'Webhook server';
+})
 // Endpoint for Facebook Webhook Verification, This is for connection establishment
 app.get('/api/webhook', (req, res) => {
   console.log('GET /api/webhook called');
@@ -27,6 +31,8 @@ app.get('/api/webhook', (req, res) => {
   }
 });
 
+const leadId = [];
+
 app.post('/api/webhook', (req, res) => {
   console.log('POST /api/webhook called');
   const body = req.body;
@@ -38,7 +44,10 @@ app.post('/api/webhook', (req, res) => {
         if (change.field === 'leadgen') {
           const leadgen = change.value;
           console.log('Lead received:', leadgen);
-          // Process the lead data according to requirements
+          // Process the lead data according to requirements, 
+
+          leadId.push(leadgen.leadgen_id);
+         
         }
       });
     });
