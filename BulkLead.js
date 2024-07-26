@@ -33,15 +33,6 @@ const leadss = (new Ad(id)).getLeads(
 logApiCallResult('leadss api call complete.', leadss); 
 
 
-
-for(let i = 0 ; i< n; i++) {
-  console.log(leadss);
-  currentId = leadss.id;
-  fields_data = leadss.values;
-}
-
-let j = 0;
-while(j < n) {
-    console.log(leadss);
-    j++;
+for(let i = 0; i < 5; i++){
+    console.log('Lead Data', leadss);
 }
